@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+option csharp_namespace = "ItemService.API.Protos";
+
+import "google/protobuf/timestamp.proto";
+
+package AllergenMessages;
+
+message Allergen {
+	string name = 1;
+	string description = 2;
+	google.protobuf.Timestamp dateModified = 3;
+	google.protobuf.Timestamp dateCreated = 4;
+	string id = 5;
+}
+
+message GetRequest {
+	string id = 1;
+}
+
+message GetAllRequest {
+
+}
+
+message CreateRequest {
+	string name = 1;
+	string description = 2;
+}
+
+message UpdateRequest {
+	string id = 1;
+	string name = 2;
+	string description = 3;
+}
+
+message DeleteRequest {
+	string id = 1;
+}
+
+
+message GetAllResponse {
+	repeated Allergen allergens = 1;
+}
+
+message CreateResponse {
+	string id = 1;
+}
+
+message UpdateResponse {
+
+}
+
+message DeleteResponse {
+
+}

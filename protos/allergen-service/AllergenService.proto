@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option csharp_namespace = "ItemService.API.Protos";
+
+import "Protos/AllergenMessages.proto";
+
+// CRUD Allergen service
+service AllergenService {
+
+	// Gets single allergen
+	rpc Get (AllergenMessages.GetRequest) returns (AllergenMessages.Allergen);
+
+	// Gets all allergens
+	rpc GetAll (AllergenMessages.GetAllRequest) returns (AllergenMessages.GetAllResponse);
+
+	// Creates allergen
+	rpc Create (AllergenMessages.CreateRequest) returns (AllergenMessages.CreateResponse);
+
+	// Updates allergen
+	rpc Update (AllergenMessages.UpdateRequest) returns (AllergenMessages.UpdateResponse);
+
+	// Deletes allergen
+	rpc Delete (AllergenMessages.DeleteRequest) returns (AllergenMessages.DeleteResponse);
+
+
+}
