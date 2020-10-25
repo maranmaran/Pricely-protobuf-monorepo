@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-option csharp_namespace = "ItemService.API.Protos";
-
 import "google/protobuf/timestamp.proto";
 
 package AllergenMessages;

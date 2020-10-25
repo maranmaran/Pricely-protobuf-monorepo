@@ -1,0 +1,10 @@
+protoc:
+  version: 3.11.0
+  
+lint:
+  group: uber2
+  rules: 
+    remove:
+      - ENUM_ZERO_VALUES_INVALID_EXCEPT_MESSAGE
+      - SERVICE_NAMES_API_SUFFIX
+      - REQUEST_RESPONSE_TYPES_ONLY_IN_FILE 

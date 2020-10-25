@@ -1,0 +1,13 @@
+Be in root folder
+
+Run powershell command
+docker run -v ${pwd}:/defs namely/protoc-all -f protos/allergen-service/AllergenService.proto -l csharp
+
+pb-csharp is output with generated classes
+
+Next create .net class library project
+
+cd gen/pb-csharp
+dotnet new classlib -n packages/allergen-service-csharp/AllergenServiceLib
+
+Next copy classes into project and include them

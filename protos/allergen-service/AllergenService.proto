@@ -1,8 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "ItemService.API.Protos";
-
-import "Protos/AllergenMessages.proto";
+import "protos/allergen-service/AllergenMessages.proto";
 
 // CRUD Allergen service
 service AllergenService {
