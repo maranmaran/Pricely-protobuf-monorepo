@@ -12,7 +12,16 @@ steps:
       arguments: >
         -packageName "Allergen"
         -repoName $(Build.Repository.Name)
-        
+  
+  - task: NuGetAuthenticate@0
+    displayName: 'NuGet Authenticate'
+
+  - task: NuGetCommand@2
+    displayName: 'NuGet push'
+    inputs:
+      command: push
+      publishVstsFeed: 'Monorepo/ProtoPackages'
+      allowPackageConflicts: true
 
 
 

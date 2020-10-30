@@ -10,6 +10,8 @@ $nugetOutput = "nuget"
 Write-Host $packageName
 Write-Host $repoName
 
+$packageName = "Allergen"
+
 # Generates nuget package
 function GenerateNugetPackage($protoSrc, $genSrc, $packageName, $version, $nugetOutput) {
     
@@ -54,19 +56,23 @@ function GenerateNugetPackage($protoSrc, $genSrc, $packageName, $version, $nuget
 
     $packageProjectPath = $genSrc + $packageName + "/" + $packageName + ".csproj"
     
+    Write-Host "Creating library"
     CreateClassLibrary $genSrc $packageName
 
+    Write-Host "Setting nuget details"
     SetNugetPackageDetails $packageProjectPath $packageName $version
 
     # Prepare nuget
+    Write-Host "Packing nuget"
     dotnet pack $packageProjectPath -o $nugetOutput
 
     $nupkgName = ("nuget/" + $packageName + "." + $version + ".nupkg")
     $apiKey = "f15f053c-dab1-4808-98f3-29833486497a"
     $feedSrc = "https://pkgs.dev.azure.com/pricelydev/_packaging/ProtoPackages/nuget/v3/index.json"
 
-    # Publish nuget
-    dotnet nuget push $nupkgName --api-key $apiKey --source $feedSrc
+    # # Publish nuget
+    # Write-Host "Publishing nuget"
+    # dotnet nuget push $nupkgName --api-key $apiKey --source $feedSrc
 }
 
 GenerateNugetPackage $protoSrc $genSrc $packageName $version $nugetOutput
