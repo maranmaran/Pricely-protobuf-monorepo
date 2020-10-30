@@ -61,9 +61,9 @@ function GenerateNugetPackage($protoSrc, $genSrc, $packageName, $version, $nuget
     # Prepare nuget
     dotnet pack $packageProjectPath -o $nugetOutput
 
-    $nupkgName = ($packageName + "." + $version + ".nupkg")
+    $nupkgName = ("nuget/" + $packageName + "." + $version + ".nupkg")
     $apiKey = "f15f053c-dab1-4808-98f3-29833486497a"
-    $feedSrc = "ProtoPackages"
+    $feedSrc = "https://pkgs.dev.azure.com/pricelydev/_packaging/ProtoPackages/nuget/v3/index.json"
 
     # Publish nuget
     dotnet nuget push $nupkgName --api-key $apiKey --source $feedSrc
