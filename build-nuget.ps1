@@ -1,79 +1,76 @@
-param($packageName, $repoName) 
+param($repository, $version, $description) 
 
-# $protoSrc = "packages/dispatch/"
-# $genSrc = "gen/pb-csharp/"
-$protoSrc = ""
-$genSrc = ""
+# test
+$repository = "p3/dispatch-csharp"
 $version = "1.0.0"
-$nugetOutput = "nuget"
+$description = "Dispatch services"
 
-Write-Host $packageName
-Write-Host $repoName
-
-$packageName = "Allergen"
+# Describes package name - parsed out of repo name
+$name = $repository.split('\/')[-1] -replace "-csharp", ""
 
 # Generates nuget package
-function GenerateNugetPackage($protoSrc, $genSrc, $packageName, $version, $nugetOutput) {
+function GenerateNugetPackage($name, $version, $description) {
     
     #region Helper functions
 
     # Creates dotnet library that will be packed as NUGET package
-    function CreateClassLibrary($path, $name, $grpcPackageVersion = "2.33.1") {
+    function CreateLibrary($csprojPath, $name, $grpcPackageVersion = "2.33.1") {
         # Create lib and add needed packages
-        dotnet new classlib -f netcoreapp3.1 --no-restore -o ($path + $name)  
-        dotnet add ($path + $name + "/" + $name + ".csproj") package Grpc.AspNetCore -v $grpcPackageVersion --no-restore
+        dotnet new classlib -f netcoreapp3.1 --no-restore -o $name  
+        dotnet add $csprojPath package Grpc.AspNetCore -v $grpcPackageVersion --no-restore
 
+        # Cut all previously generated stubs (.cs grpc files) to library
+        $stubs = Get-ChildItem . -Filter "*.cs"
+        foreach($stub in $stubs) {
+            Copy-Item $stub -Destination $name
+        }
+    
         # This has to be removed manually. Microsoft still didn't add some kind of flag
         # To suppress this default class generation 
-        Remove-Item -Path ($path + $name + "/Class1.cs")
+        Remove-Item -Path ($name + "/Class1.cs")
     }
 
     # Sets some metadata for nuget package (version, id, company etc)
-    function SetNugetPackageDetails($libraryPath, $id, $version, $company = "P3") {
+    function SetLibraryMetadata($csprojPath, $name, $version, $description, $company = "P3") {
         # Get csproj as XML
-        [xml]$projectXML = Get-Content ($libraryPath)
+        [xml]$projectXML = Get-Content ($csprojPath)
 
         # Create elements to write to
         $packageId = $projectXML.CreateElement("PackageId")
         $packageVersion = $projectXML.CreateElement("Version")
         $packageCompany = $projectXML.CreateElement("Company")
+        $packageDescription = $projectXML.CreateElement("PackageDescription")
 
         # Add values
-        $packageId.InnerText = $id
+        $packageId.InnerText = $name
         $packageVersion.InnerText = $version
         $packageCompany.InnerText = $company
+        $packageDescription.InnerText = $description
 
         # Append as nodes to xml Project node
         $projectXML.Project.PropertyGroup.AppendChild($packageId)
         $projectXML.Project.PropertyGroup.AppendChild($packageVersion)
         $projectXML.Project.PropertyGroup.AppendChild($packageCompany)
+        $projectXML.Project.PropertyGroup.AppendChild($packageDescription)
 
         # Save
-        $projectXML.Save($libraryPath)
+        $projectXML.Save($csprojPath)
     }
 
     #endregion
 
-    $packageProjectPath = $genSrc + $packageName + "/" + $packageName + ".csproj"
+    $csprojPath = $name + "/" + $name + ".csproj"
     
     Write-Host "Creating library"
-    CreateClassLibrary $genSrc $packageName
+    CreateLibrary $csprojPath $name
 
     Write-Host "Setting nuget details"
-    SetNugetPackageDetails $packageProjectPath $packageName $version
+    SetLibraryMetadata $csprojPath $name $version
 
-    # Prepare nuget
+    # Pack nuget
     Write-Host "Packing nuget"
-    dotnet pack $packageProjectPath -o $nugetOutput
-
-    $nupkgName = ("nuget/" + $packageName + "." + $version + ".nupkg")
-    $apiKey = "f15f053c-dab1-4808-98f3-29833486497a"
-    $feedSrc = "https://pkgs.dev.azure.com/pricelydev/_packaging/ProtoPackages/nuget/v3/index.json"
-
-    # # Publish nuget
-    # Write-Host "Publishing nuget"
-    # dotnet nuget push $nupkgName --api-key $apiKey --source $feedSrc
+    dotnet pack $csprojPath -o "nuget"
 }
 
-GenerateNugetPackage $protoSrc $genSrc $packageName $version $nugetOutput
+GenerateNugetPackage $name $version $description
 

@@ -4,6 +4,9 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  nugetFeed: "Monorepo/ProtoPackagesMonorepo"
+
 steps:
   - task: UseDotNet@2
     inputs:
@@ -15,8 +18,7 @@ steps:
     inputs:
       filePath: build-nuget.ps1
       arguments: >
-        -packageName "Allergen"
-        -repoName $(Build.Repository.Name)
+        -repositoryName $(Build.Repository.Name)
 
   - task: NuGetAuthenticate@0
     displayName: 'NuGet Authenticate'
@@ -26,7 +28,7 @@ steps:
     inputs:
       command: push
       packagesToPush: $(System.DefaultWorkingDirectory)/**/*.nupkg;!$(System.DefaultWorkingDirectory)/**/*.symbols.nupkg
-      publishVstsFeed: 'Monorepo/ProtoPackagesMonorepo'
+      publishVstsFeed: $(nugetFeed)
       allowPackageConflicts: true
 
 
