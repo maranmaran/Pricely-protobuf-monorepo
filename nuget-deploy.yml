@@ -5,6 +5,11 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '3.x'
+      
   - task: PowerShell@2
     condition: contains(variables['Build.Repository.Name'], 'repo')
     inputs:
@@ -12,7 +17,7 @@ steps:
       arguments: >
         -packageName "Allergen"
         -repoName $(Build.Repository.Name)
-  
+
   - task: NuGetAuthenticate@0
     displayName: 'NuGet Authenticate'
 
