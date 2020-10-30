@@ -14,27 +14,9 @@ $nugetOutput = "nuget"
 Write-Host $packageName
 Write-Host $repoName
 
-GenerateNugetPackage $protoSrc $genSrc $packageName $version $nugetOutput
-
 # Generates nuget package
 function GenerateNugetPackage($protoSrc, $genSrc, $packageName, $version, $nugetOutput) {
     
-    $packageProjectPath = $genSrc + $packageName + "/" + $packageName + ".csproj"
-    
-    CreateClassLibrary $genSrc $packageName
-
-    SetNugetPackageDetails $packageProjectPath $packageName $version
-
-    # Prepare nuget
-    dotnet pack $packageProjectPath -o $nugetOutput
-
-    # Publish nuget
-    # dotnet nuget push dispatch-protos.1.0.0.nupkg --api-key <KEY> --source <SOURCE:https://api.nuget.org/v3/index.json>
-
-    # Cleanup
-    # Remove-Item -Path $genSrc -Recurse -Force
-    Remove-Item -Path ($genSrc + $packageName) -Recurse -Force
-
     #region Helper functions
 
     # Creates dotnet library that will be packed as NUGET package
@@ -73,5 +55,23 @@ function GenerateNugetPackage($protoSrc, $genSrc, $packageName, $version, $nuget
     }
 
     #endregion
+
+    $packageProjectPath = $genSrc + $packageName + "/" + $packageName + ".csproj"
     
+    CreateClassLibrary $genSrc $packageName
+
+    SetNugetPackageDetails $packageProjectPath $packageName $version
+
+    # Prepare nuget
+    dotnet pack $packageProjectPath -o $nugetOutput
+
+    # Publish nuget
+    # dotnet nuget push dispatch-protos.1.0.0.nupkg --api-key <KEY> --source <SOURCE:https://api.nuget.org/v3/index.json>
+
+    # Cleanup
+    # Remove-Item -Path $genSrc -Recurse -Force
+    Remove-Item -Path ($genSrc + $packageName) -Recurse -Force
 }
+
+GenerateNugetPackage $protoSrc $genSrc $packageName $version $nugetOutput
+
