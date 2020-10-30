@@ -9,7 +9,7 @@ steps:
     condition: contains(variables['Build.Repository.Name'], 'repo')
     inputs:
       filePath: $(System.DefaultWorkingDirectory)\build-nuget.ps1
-      arguments:  >
+      arguments: >
         -input1 $(Build.Repository.Name)
         
 
