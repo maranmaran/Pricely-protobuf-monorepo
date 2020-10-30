@@ -4,12 +4,10 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  isCsharpRepository: $[contains(variables['Build.Repository.Name'], 'repo')]
 
 steps:
   - task: PowerShell@2
-    condition: eq(variables.isCsharpRepository, true)
+    condition: contains(variables['Build.Repository.Name'], 'repo')
     inputs:
       filePath: 'build-nuget.ps1'
 
