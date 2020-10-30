@@ -4,8 +4,6 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-container: ubuntu-latest
-
 variables:
   repositoryName: $(Build.Repository.Name)
 
