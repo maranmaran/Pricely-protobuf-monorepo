@@ -61,12 +61,12 @@ function GenerateNugetPackage($protoSrc, $genSrc, $packageName, $version, $nuget
     # Prepare nuget
     dotnet pack $packageProjectPath -o $nugetOutput
 
-    # Publish nuget
-    # dotnet nuget push dispatch-protos.1.0.0.nupkg --api-key <KEY> --source <SOURCE:https://api.nuget.org/v3/index.json>
+    $nupkgName = ($packageName + "." + $version + ".nupkg")
+    $apiKey = "f15f053c-dab1-4808-98f3-29833486497a"
+    $feedSrc = "https://pkgs.dev.azure.com/pricelydev/_packaging/ProtoPackages/nuget/v3/index.json"
 
-    # Cleanup
-    # Remove-Item -Path $genSrc -Recurse -Force
-    Remove-Item -Path ($genSrc + $packageName) -Recurse -Force
+    # Publish nuget
+    dotnet nuget push $nupkgName --api-key $apiKey --source $feedSrc
 }
 
 GenerateNugetPackage $protoSrc $genSrc $packageName $version $nugetOutput
