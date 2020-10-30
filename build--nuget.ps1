@@ -67,4 +67,7 @@ $packageName = "Allergen"
 $version = "1.0.0"
 $nugetOutput = "nuget"
 
+param($input1) 
+Write-Host $input1
+
 GenerateNugetPackage $protoSrc $genSrc $packageName $version $nugetOutput
