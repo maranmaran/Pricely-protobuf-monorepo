@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net3.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="gen\pb-csharp\AllergenService.cs" />
+    <Compile Include="gen\pb-csharp\AllergenServiceGrpc.cs" />
+  </ItemGroup>
+</Project>
