@@ -1,5 +1,5 @@
 trigger:
-- master
+  - master
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -9,7 +9,7 @@ container: ubuntu-latest
 variables:
   repositoryName: $(Build.Repository.Name)
 
-  steps:
+steps:
   - task: PowerShell@2
     condition: contains(repositoryName, 'repo')
     inputs:
