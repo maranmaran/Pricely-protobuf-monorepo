@@ -10,7 +10,8 @@ steps:
     inputs:
       filePath: build-nuget.ps1
       arguments: >
-        -input1 $(Build.Repository.Name)
+        -packageName "Allergen"
+        -repoName $(Build.Repository.Name)
         
 
 
