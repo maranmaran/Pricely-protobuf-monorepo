@@ -1,9 +1,5 @@
 param($packageName, $repoName) 
 
-# Needed technologies:
-# - Docker
-# - Dotnet CLI 
-
 # $protoSrc = "packages/dispatch/"
 # $genSrc = "gen/pb-csharp/"
 $protoSrc = ""
