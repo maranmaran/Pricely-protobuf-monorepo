@@ -6,7 +6,7 @@ pool:
 
 steps:
   - task: PowerShell@2
-    condition: contains($(Build.Repository.Name), 'repo')
+    condition: contains(variables['Build.Repository.Name'], 'repo')
     inputs:
       filePath: $(System.DefaultWorkingDirectory)\build-nuget.ps1
       arguments:  >
