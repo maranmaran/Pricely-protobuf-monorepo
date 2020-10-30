@@ -4,12 +4,14 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables: 
+  nugetShellScript: '$(Build.SourcesDirectory)/build-nuget.ps1'
 
 steps:
   - task: PowerShell@2
     condition: contains(variables['Build.Repository.Name'], 'repo')
     inputs:
-      filePath: 'build-nuget.ps1'
+      filePath: $(nugetShellScript)
 
 
 
