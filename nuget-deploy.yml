@@ -9,7 +9,7 @@ variables:
 
 steps:
   - task: PowerShell@2
-    condition: contains(repositoryName, 'repo')
+    condition: contains($(repositoryName), 'repo')
     inputs:
       filePath: 'build-nuget.ps1'
 
