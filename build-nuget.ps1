@@ -70,6 +70,8 @@ function GenerateNugetPackage($name, $version, $description) {
     # Pack nuget
     Write-Host "Packing nuget"
     dotnet pack $csprojPath -o "nuget"
+
+    # Remove-Item $name -Recurse 
 }
 
 GenerateNugetPackage $name $version $description

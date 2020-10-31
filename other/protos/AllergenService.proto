@@ -1,6 +1,8 @@
 syntax = "proto3";
 
-import "protos/allergen-service/AllergenMessages.proto";
+package AllergenService;
+
+import "other/protos/AllergenMessages.proto";
 
 // CRUD Allergen service
 service AllergenService {

@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-import "google/protobuf/timestamp.proto";
-
 package AllergenMessages;
+
+import "google/protobuf/timestamp.proto";
 
 message Allergen {
 	string name = 1;

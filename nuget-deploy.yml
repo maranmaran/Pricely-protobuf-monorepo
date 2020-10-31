@@ -5,7 +5,10 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
+  # nugetFeed: "<Project>/<Feed>"
   nugetFeed: "Monorepo/ProtoPackagesMonorepo"
+  version: "1.0.0"
+  description: "Handles this and that.."
 
 steps:
   - task: UseDotNet@2
@@ -19,6 +22,8 @@ steps:
       filePath: build-nuget.ps1
       arguments: >
         -repositoryName $(Build.Repository.Name)
+        -version $(version)
+        -description $(description)
 
   - task: NuGetAuthenticate@0
     displayName: 'NuGet Authenticate'
