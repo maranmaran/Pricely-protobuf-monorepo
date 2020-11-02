@@ -27,12 +27,12 @@ jobs:
   - script: echo $(nextRelease)
   - script: echo $env:nextRelease
   - script: echo variables['nextRelease']
-  - powershell: echo $[variables.var]
-  - powershell: echo "$[variables.var]"
+  - powershell: echo $[variables.nextRelease]
+  - powershell: echo "$[variables.nextRelease]"
   
     # Output version number to be available to other jobs
   - powershell: |
-      echo "##vso[task.setvariable variable=versionNumber;isOutput=true]$env:nextRelease"
+      echo "##vso[task.setvariable variable=versionNumber;isOutput=true]$[variables.nextRelease]"
     name: versionOutput
     displayName: Release version output
 
