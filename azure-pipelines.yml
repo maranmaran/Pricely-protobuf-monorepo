@@ -27,6 +27,8 @@ jobs:
   - script: echo $(nextRelease)
   - script: echo $env:nextRelease
   - script: echo variables['nextRelease']
+  - powershell: echo $[variables.var]
+  - powershell: echo "$[variables.var]"
   
     # Output version number to be available to other jobs
   - powershell: |
