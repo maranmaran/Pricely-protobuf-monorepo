@@ -28,7 +28,7 @@ jobs:
 - job: Build_Nuget
   displayName: Build NuGet 
   # Only if csharp repo
-  condition: contains(variables['Build.Repository.Name'], 'repo')
+  condition: contains(variables['Build.SourceBranch'], 'repo')
   variables:
     #   nugetFeed: "<Project>/<Feed>" # Put project / feed here
     nugetVersion: $[ dependencies.Tag_Release.outputs['versionOutput.versionNumber'] ]
