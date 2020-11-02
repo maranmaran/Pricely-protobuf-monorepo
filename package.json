@@ -1,7 +1,7 @@
 {
   "name": "ProtoMonorepo",
   "private": true,
-  "version": "1.0.0",
+  "version": "v1.0.0",
   "description": "Proto description",
   "release": {
     "branches": [ "main" ]

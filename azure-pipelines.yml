@@ -58,7 +58,7 @@ jobs:
     inputs:
         filePath: build-nuget.ps1
         arguments: >
-            -repositoryName $(Build.Repository.Name)
+            -repository $(Build.Repository.Name)
             -version $(nugetVersion)
 
   # Perhaps dotnet pack task instead of doing it in script
