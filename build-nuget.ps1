@@ -1,12 +1,12 @@
-param($repository, $version, $description) 
+param($version) 
 
-# Describes package name - parsed out of repo name
-$name = $repository.split('\/')[-1] -replace "-csharp", ""
-$description = (Get-Content 'package.json' | Out-String | ConvertFrom-Json).description
+$packageJson = (Get-Content 'package.json' | Out-String | ConvertFrom-Json)
+$name = $packageJson.name
+$description = $packageJson.description
 
-Write-Host "Package name is " + $name
-Write-Host "Package version is " + $version
-Write-Host "Package description is " + $description
+Write-Host Package name is $name
+Write-Host Package version is $version
+Write-Host Package description is $description
 
 # Generates nuget package
 function GenerateNugetPackage($name, $version, $description) {

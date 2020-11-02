@@ -1,6 +1,9 @@
 trigger:
   - master
 
+pool:
+  vmImage: "ubuntu-latest"
+
 jobs:
 
 # Tags release using semantic versioning
@@ -10,7 +13,7 @@ jobs:
     vmImage: 'vs2017-win2016'
   steps:
 
-  # TODO: Check in with Igor about this (compare to gitlab)
+  # TODO: add docs stuff like Igor did with gitlab CI/CD
   - script:  >
       npx 
       -p semantic-release
@@ -21,7 +24,6 @@ jobs:
     env: { GH_TOKEN: $(GitHubToken) }
 
   - script: echo "$(nextRelease)"
-  
   - script: echo $(nextRelease)
   - script: echo $env:nextRelease
   - script: echo variables['nextRelease']
@@ -39,12 +41,11 @@ jobs:
   displayName: Build NuGet
   dependsOn: Tag_Release
   # Only if csharp repo
+  # condition: contains(variables['Build.DefinitionName'], 'csharp')
   condition: contains(variables['Build.DefinitionName'], 'repo')
   variables:
     #   nugetFeed: "<Project>/<Feed>" # Put project / feed here
     nugetVersion: $[ dependencies.Tag_Release.outputs['versionOutput.versionNumber'] ]
-  pool:
-    vmImage: "ubuntu-latest"
   steps:
 
   # Install .net SDK
@@ -58,7 +59,6 @@ jobs:
     inputs:
         filePath: build-nuget.ps1
         arguments: >
-            -repository $(Build.Repository.Name)
             -version $(nugetVersion)
 
   # Perhaps dotnet pack task instead of doing it in script
