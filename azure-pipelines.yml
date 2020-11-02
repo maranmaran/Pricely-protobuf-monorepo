@@ -20,19 +20,13 @@ jobs:
     displayName: 'Tag release (semantic)'
     env: { GH_TOKEN: $(GitHubToken) }
   
-  
   # Output version number to be available to other jobs
   - powershell: |
-      Write-Host "##vso[task.setvariable variable=versionNumber;isOutput=true]$env:nextRelease"
+      echo "##vso[task.setvariable variable=versionNumber;isOutput=true]$env:releaseVersion"
+    env:
+      releaseVersion: $(nextRelease)
     name: versionOutput
     displayName: Release version output
-
-  - script: echo $(nextRelease)
-    displayName: 'Show next version'
-
-  - powershell: |
-      Write-Host "this works: $env:nextRelease"
-
 
 # Builds nuget package from repository cs files and publishes to feed
 - job: Build_Nuget
