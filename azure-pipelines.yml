@@ -4,6 +4,9 @@ trigger:
 pool:
     vmImage: "ubuntu-latest"
 
+variables: 
+  GitHubToken: "d56098c0bbdd20b1186f64347eb40a42c0b3cb15"
+
 jobs:
 
 # Tags release using semantic versioning
@@ -12,11 +15,11 @@ jobs:
   steps:
 
   # TODO: Check in with Igor about this (compare to gitlab)
-  - script:  |
-      npm install semantic-release @semantic-release/git semantic-release-ado
-      echo "Npm installation done"
-      npx semantic-release
-      echo "Semantic release done"
+  - script:  >
+      npx -p semantic-release
+      -p @semantic-release/git
+      -p semantic-release-ado
+      semantic-release
     displayName: 'Tag release (semantic)'
     env: { GH_TOKEN: $(GitHubToken) }
         
