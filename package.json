@@ -5,5 +5,11 @@
   "description": "Proto description",
   "release": {
     "branches": [ "main" ]
-  }
+  },
+  "plugins": [
+    ["semantic-release-ado", {
+      "varName": "nextRelease",
+      "setOnlyOnRelease": true
+    }]
+  ]
 }
