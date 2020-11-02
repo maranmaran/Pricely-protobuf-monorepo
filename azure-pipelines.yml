@@ -20,8 +20,9 @@ jobs:
     displayName: 'Tag release (semantic)'
     env: { GH_TOKEN: $(GitHubToken) }
 
-  - script: echo $(nextRelease)
-    displayName: 'Show next version'
+  - script: |
+      echo ${{ variables.nextRelease }} 
+      echo $(nextRelease)
   
     # Output version number to be available to other jobs
   - powershell: |
