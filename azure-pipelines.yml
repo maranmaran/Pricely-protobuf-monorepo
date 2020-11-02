@@ -4,9 +4,6 @@ trigger:
 pool:
   vmImage: "ubuntu-latest"
 
-variables: 
-  nextRelease: "1.0.0"
-
 jobs:
 
 # Tags release using semantic versioning
