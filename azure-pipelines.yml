@@ -14,7 +14,7 @@ jobs:
   # TODO: Check in with Igor about this (compare to gitlab)
   - script:  >
         npx -p semantic-release
-        -p @semantic-release/git
+        -p @semantic-release/github
         -p semantic-release-ado
         semantic-release
     displayName: 'Tag release (semantic)'
