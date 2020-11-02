@@ -4,9 +4,6 @@ trigger:
 pool:
     vmImage: "ubuntu-latest"
 
-variables: 
-  GitHubToken: "d56098c0bbdd20b1186f64347eb40a42c0b3cb15"
-
 jobs:
 
 # Tags release using semantic versioning
