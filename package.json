@@ -1,4 +1,5 @@
 {
+  "name": "ProtoMonorepo",
   "release": {
     "branches": [ "main" ]
   }
