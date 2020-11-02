@@ -1,12 +1,12 @@
 param($repository, $version, $description) 
 
-# test
-# $repository = "p3/dispatch-csharp"
-# $version = "1.0.0"
-# $description = "Dispatch services"
-
 # Describes package name - parsed out of repo name
 $name = $repository.split('\/')[-1] -replace "-csharp", ""
+$description = (Get-Content 'package.json' | Out-String | ConvertFrom-Json).description
+
+Write-Host "Package name is " + $name
+Write-Host "Package version is " + $version
+Write-Host "Package description is " + $description
 
 # Generates nuget package
 function GenerateNugetPackage($name, $version, $description) {
