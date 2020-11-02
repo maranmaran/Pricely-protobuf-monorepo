@@ -12,6 +12,8 @@ jobs:
 # Tags release using semantic versioning
 - job: Tag_Release
   displayName: Tag release
+  pool:
+    vmImage: 'vs2017-win2016'
   steps:
 
   # TODO: Check in with Igor about this (compare to gitlab)
@@ -24,16 +26,12 @@ jobs:
     env: { GH_TOKEN: $(GitHubToken) }
 
   - script: |
-      echo "Test ${{ variables.nextRelease }}"" 
-      echo "Test $(nextRelease)"
       echo ${{ variables.nextRelease }} 
       echo $(nextRelease)
   
     # Output version number to be available to other jobs
   - powershell: |
-      echo "##vso[task.setvariable variable=versionNumber;isOutput=true]$env:releaseVersion"
-    env:
-      releaseVersion: $(nextRelease)
+      echo "##vso[task.setvariable variable=versionNumber;isOutput=true]$env:nextRelease"
     name: versionOutput
     displayName: Release version output
 
