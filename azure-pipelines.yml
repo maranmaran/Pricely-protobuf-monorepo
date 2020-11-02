@@ -12,11 +12,11 @@ jobs:
   steps:
 
   # TODO: Check in with Igor about this (compare to gitlab)
-  - script:  >
-      npx -p semantic-release
-      -p @semantic-release/git
-      -p semantic-release-ado
-      semantic-release
+  - script:  |
+      npm install semantic-release @semantic-release/git semantic-release-ado
+      echo "Npm installation done"
+      npx semantic-release
+      echo "Semantic release done"
     displayName: 'Tag release (semantic)'
     env: { GH_TOKEN: $(GitHubToken) }
         

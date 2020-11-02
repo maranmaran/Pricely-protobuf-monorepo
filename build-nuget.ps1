@@ -1,9 +1,9 @@
 param($repository, $version, $description) 
 
 # test
-$repository = "p3/dispatch-csharp"
-$version = "1.0.0"
-$description = "Dispatch services"
+# $repository = "p3/dispatch-csharp"
+# $version = "1.0.0"
+# $description = "Dispatch services"
 
 # Describes package name - parsed out of repo name
 $name = $repository.split('\/')[-1] -replace "-csharp", ""
