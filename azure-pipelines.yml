@@ -1,0 +1,72 @@
+trigger:
+    - master
+  
+  pool:
+    vmImage: "ubuntu-latest"
+  
+  jobs:
+  
+  # Tags release using semantic versioning
+  - job: Tag_Release
+    displayName: Tag release
+    steps:
+  
+      # TODO: Check in with Igor about this (compare to gitlab)
+      - task:
+          displayName: 'Tag release (semantic)'
+          inputs:
+              env: { GH_TOKEN: $(GitHubToken) }
+              script: >
+                  npx -p semantic-release
+                  -p @semantic-release/git
+                  -p semantic-release-ado
+                  semantic-release
+                  
+      # Output version number to be available to other jobs
+      - powershell: |
+          echo "##vso[task.setvariable variable=versionNumber;isOutput=true]$(nextRelease)"
+        name: versionOutput
+  
+  # Builds nuget package from repository cs files and publishes to feed
+  - job: Build_Nuget
+    displayName: Build NuGet 
+    # Only if csharp repo
+    condition: contains(variables['Build.Repository.Name'], 'csharp')
+    variables:
+    #   nugetFeed: "<Project>/<Feed>" # Put project / feed here
+      nugetVersion: $[ dependencies.Tag_Release.outputs['versionOutput.versionNumber'] ]
+      # TODO: See where to ge this from.. accepting suggestions. Was thinking ReadMe.md
+      # Igor please remind me of what you said about this please :D 
+      description: "Handles this and that.." 
+    steps:
+  
+      # Install .net SDK
+      - task: UseDotNet@2
+          inputs:
+              packageType: "sdk"
+              version: "3.x"
+  
+      # Create library and pack nuget - version is pulled out of semantic-release task
+      - task: PowerShell@2
+          inputs:
+              filePath: build-nuget.ps1
+              arguments: >
+              -repositoryName $(Build.Repository.Name)
+              -version $(nugetVersion)
+              -description $(description)
+  
+      # Perhaps dotnet pack task instead of doing it in script
+  
+      # Auth for nuget push
+      - task: NuGetAuthenticate@0
+          displayName: "NuGet Authenticate"
+  
+      # Publish to feed
+      - task: NuGetCommand@2
+          displayName: "NuGet push"
+          inputs:
+              command: push
+              packagesToPush: $(System.DefaultWorkingDirectory)/**/*.nupkg;!$(System.DefaultWorkingDirectory)/**/*.symbols.nupkg
+              publishVstsFeed: $(nugetFeed)
+              allowPackageConflicts: true
+  
