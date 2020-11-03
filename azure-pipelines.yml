@@ -18,7 +18,7 @@ jobs:
       -p semantic-release-ado
       semantic-release
     displayName: 'Tag release (semantic)'
-    env: { GIT_CREDENTIALS : $(GitHubToken), GIT_CREDENTIALS : $(GitHubToken) }
+    env: { GH_TOKEN : $(GitHubToken), GIT_CREDENTIALS : $(GitHubToken) }
 
   - script: echo "$(nextRelease)"
   - script: echo $nextRelease"
