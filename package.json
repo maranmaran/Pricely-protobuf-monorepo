@@ -6,7 +6,6 @@
   "release": {
     "branches": [ "main" ],
     "plugins": [
-      "semantic-release",
       "@semantic-release/git",
       "semantic-release-ado"
     ]

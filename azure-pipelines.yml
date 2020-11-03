@@ -4,7 +4,7 @@ trigger:
 pool:
   vmImage: "ubuntu-latest"
 
-  
+
 variables:
   isCsharpRepository: $[contains(variables['Build.DefinitionName'], 'repo')]
 
@@ -17,8 +17,7 @@ jobs:
 
   # TODO: add docs stuff like Igor did with gitlab CI/CD
   - script:  >
-      npx 
-      -p semantic-release
+      npx semantic-release
       -p @semantic-release/git
       -p semantic-release-ado
       semantic-release
