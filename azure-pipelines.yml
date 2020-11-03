@@ -4,6 +4,7 @@ trigger:
 pool:
   vmImage: "ubuntu-latest"
 
+  
 variables:
   isCsharpRepository: $[contains(variables['Build.DefinitionName'], 'repo')]
 
