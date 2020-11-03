@@ -18,6 +18,7 @@ jobs:
   - script:  >
       npx 
       -p semantic-release
+      -p @semantic-release/changelog
       -p @semantic-release/git
       -p semantic-release-ado
       semantic-release
