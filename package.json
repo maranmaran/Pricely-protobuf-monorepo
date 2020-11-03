@@ -5,10 +5,5 @@
   "description": "Some description",
   "release": {
     "branches": [ "main" ]
-  },
-  "plugins": [
-    ["semantic-release-ado", {
-      "setOnlyOnRelease": false
-    }]
-  ]
+  }
 }
