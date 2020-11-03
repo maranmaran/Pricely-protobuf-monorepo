@@ -1,7 +1,7 @@
 {
   "name": "ProtoMonorepo",
   "private": true,
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Some description",
   "release": {
     "branches": [
@@ -13,9 +13,12 @@
       "@semantic-release/npm",
       "@semantic-release/changelog",
       "@semantic-release/git",
-      ["semantic-release-ado", {
-        "setOnlyOnRelease": false
-      }]
+      [
+        "semantic-release-ado",
+        {
+          "setOnlyOnRelease": false
+        }
+      ]
     ]
   }
 }
