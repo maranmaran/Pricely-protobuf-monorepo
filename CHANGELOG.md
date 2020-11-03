@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/maranmaran/Pricely-protobuf-monorepo/compare/v1.7.0...v1.8.0) (2020-11-03)
+
+
+### Features
+
+* fix for ado configuration ([70830b2](https://github.com/maranmaran/Pricely-protobuf-monorepo/commit/70830b23b36675f214c941d9a067e7dbf10199a7))
+
 # [1.7.0](https://github.com/maranmaran/Pricely-protobuf-monorepo/compare/v1.6.0...v1.7.0) (2020-11-03)
 
 
