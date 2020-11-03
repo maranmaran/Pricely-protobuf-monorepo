@@ -1,3 +1,15 @@
+# [1.6.0](https://github.com/maranmaran/Pricely-protobuf-monorepo/compare/v1.5.0...v1.6.0) (2020-11-03)
+
+
+### Bug Fixes
+
+* again ([33d52d2](https://github.com/maranmaran/Pricely-protobuf-monorepo/commit/33d52d23fedce55ec98c7e636720a2e746fefd70))
+
+
+### Features
+
+* powershell ([4fc9a34](https://github.com/maranmaran/Pricely-protobuf-monorepo/commit/4fc9a345f8c0b584d242dd2915d8be0d93701b0f))
+
 # [1.5.0](https://github.com/maranmaran/Pricely-protobuf-monorepo/compare/v1.4.0...v1.5.0) (2020-11-03)
 
 
