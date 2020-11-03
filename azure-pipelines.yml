@@ -11,12 +11,13 @@ jobs:
   displayName: Tag release
   steps:
 
+  - script: >
+      npm install -g semantic-release @semantic-release/git semantic-release-ado 
+    displayName: Install semantic release
+
   # TODO: add docs stuff like Igor did with gitlab CI/CD
   - script:  >
-      npx -p semantic-release
-      -p @semantic-release/git
-      -p semantic-release-ado
-      semantic-release
+      npx semantic-release
     displayName: 'Tag release (semantic)'
     env: { GH_TOKEN : $(GitHubToken), GIT_CREDENTIALS : $(GitHubToken) }
 
