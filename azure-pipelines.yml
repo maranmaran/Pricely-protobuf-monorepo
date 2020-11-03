@@ -9,19 +9,16 @@ jobs:
 # Tags release using semantic versioning
 - job: Tag_Release
   displayName: Tag release
-  pool:
-    vmImage: 'vs2017-win2016'
   steps:
 
   # TODO: add docs stuff like Igor did with gitlab CI/CD
   - script:  >
-      npx 
-      -p semantic-release
+      npx -p semantic-release
       -p @semantic-release/git
       -p semantic-release-ado
       semantic-release
     displayName: 'Tag release (semantic)'
-    env: { GH_TOKEN: $(GitHubToken) }
+    env: { GIT_CREDENTIALS : $(GitHubToken), GIT_CREDENTIALS : $(GitHubToken) }
 
   - script: echo "$(nextRelease)"
   - script: echo $nextRelease"
@@ -45,7 +42,7 @@ jobs:
   # condition: contains(variables['Build.DefinitionName'], 'csharp')
   condition: contains(variables['Build.DefinitionName'], 'repo')
   variables:
-    #   nugetFeed: "<Project>/<Feed>" # Put project / feed here
+    # nugetFeed: "P3/ProtoFeed" # Put project / feed here
     nugetVersion: $[ dependencies.Tag_Release.outputs['versionOutput.versionNumber'] ]
   steps:
 
