@@ -25,10 +25,8 @@ jobs:
     env: { GH_TOKEN : $(GitHubToken) }
 
   - script: echo $(nextRelease)
-  - script: echo "$(nextRelease)"
   - script: echo $nextRelease
   - powershell: echo $env:nextRelease
-  - powershell: echo $[variables.nextRelease]
 
     # Output version number to be available to other jobs
   - powershell: |
