@@ -4,10 +4,6 @@ $packageJson = (Get-Content 'package.json' | Out-String | ConvertFrom-Json)
 $name = $packageJson.name
 $description = $packageJson.description
 
-Write-Host Package name is $name
-Write-Host Package version is $version
-Write-Host Package description is $description
-
 # Generates nuget package
 function GenerateNugetPackage($name, $version, $description) {
     
@@ -21,7 +17,7 @@ function GenerateNugetPackage($name, $version, $description) {
 
         # Cut all previously generated stubs (.cs grpc files) to library
         $stubs = Get-ChildItem . -Filter "*.cs"
-        foreach($stub in $stubs) {
+        foreach ($stub in $stubs) {
             Copy-Item $stub -Destination $name
         }
     
@@ -42,6 +38,11 @@ function GenerateNugetPackage($name, $version, $description) {
         $packageDescription = $projectXML.CreateElement("PackageDescription")
 
         # Add values
+        Write-Host "Package name: " $name
+        Write-Host "Package version: " $version
+        Write-Host "Package company: " $company
+        Write-Host "Package description: " $description
+        
         $packageId.InnerText = $name
         $packageVersion.InnerText = $version
         $packageCompany.InnerText = $company

@@ -24,6 +24,9 @@ jobs:
       semantic-release
     displayName: 'Tag release (semantic)'
     env: { GH_TOKEN : $(GitHubToken) }
+  
+  - script: echo $(nextRelease)
+    displayName: Output release version (debug)
 
     # Output version number to be available to other jobs
   - powershell: |
