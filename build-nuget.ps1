@@ -42,7 +42,7 @@ function GenerateNugetPackage($name, $version, $description) {
         Write-Host "Package version: " $version
         Write-Host "Package company: " $company
         Write-Host "Package description: " $description
-        
+
         $packageId.InnerText = $name
         $packageVersion.InnerText = $version
         $packageCompany.InnerText = $company
@@ -66,7 +66,7 @@ function GenerateNugetPackage($name, $version, $description) {
     CreateLibrary $csprojPath $name
 
     Write-Host "Setting nuget details"
-    SetLibraryMetadata $csprojPath $name $version
+    SetLibraryMetadata $csprojPath $name $version $description
 
     # Pack nuget
     Write-Host "Packing nuget"
