@@ -5,7 +5,7 @@ pool:
   vmImage: "ubuntu-latest"
 
 variables:
-  isCsharpRepository: $[eq(variables['Build.DefinitionName'], 'repo')]
+  isCsharpRepository: $[contains(variables['Build.DefinitionName'], 'repo')]
 
 jobs:
 
@@ -16,18 +16,23 @@ jobs:
 
   # TODO: add docs stuff like Igor did with gitlab CI/CD
   - script:  >
-      npx -p semantic-release
+      npx 
+      -p semantic-release
       -p @semantic-release/git
       -p semantic-release-ado
       semantic-release
     displayName: 'Tag release (semantic)'
-    env: { GH_TOKEN : $(GitHubToken), GIT_CREDENTIALS : $(GitHubToken) }
+    env: { GH_TOKEN : $(GitHubToken) }
 
   - script: echo $(nextRelease)
+  - script: echo "$(nextRelease)"
+  - script: echo $nextRelease
+  - powershell: echo $env:nextRelease
+  - powershell: echo $[variables.nextRelease]
 
     # Output version number to be available to other jobs
   - powershell: |
-      echo "##vso[task.setvariable variable=versionNumber;isOutput=true]$nextRelease"
+      echo "##vso[task.setvariable variable=versionNumber;isOutput=true]$(nextRelease)"
     name: versionOutput
     displayName: Release version output
 
