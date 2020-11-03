@@ -12,7 +12,7 @@ jobs:
   steps:
 
   - script: >
-      npm install -g semantic-release @semantic-release/git semantic-release-ado 
+      sudo npm install -g semantic-release @semantic-release/git semantic-release-ado 
     displayName: Install semantic release
 
   # TODO: add docs stuff like Igor did with gitlab CI/CD
@@ -21,13 +21,7 @@ jobs:
     displayName: 'Tag release (semantic)'
     env: { GH_TOKEN : $(GitHubToken), GIT_CREDENTIALS : $(GitHubToken) }
 
-  - script: echo "$(nextRelease)"
-  - script: echo $nextRelease"
   - script: echo $(nextRelease)
-  - script: echo $env:nextRelease
-  - script: echo variables['nextRelease']
-  - powershell: echo $[variables.nextRelease]
-  - powershell: echo "$[variables.nextRelease]"
   
     # Output version number to be available to other jobs
   - powershell: |
